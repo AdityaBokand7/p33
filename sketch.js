@@ -15,7 +15,7 @@ var count = 0;
 var gameState  = "start"
 function setup() {
 
-  createCanvas(480,800);
+  createCanvas(800,800);
   engine = Engine.create();
   world = engine.world;
 
@@ -68,11 +68,11 @@ function draw() {
     Engine.update(engine);
   ground.display();
 
- 
-
-  for(var j=0;j<particles.length;j++){
-    particles[j].display();
+  console.log(gameState)
+  if(gameState==="end"){
+    text("GAMEOVER",250,250)
   }
+ 
   for(var j=0;j<plinkos.length;j++){
     plinkos[j].display();
   }
@@ -81,26 +81,51 @@ function draw() {
     divisions[k].display();
     
     }
+    if(particle!=null){
+      particle.display();
+
+      if(particle.body.position.y>760)
+      {
+        if(particle.body.position.x<300)
+        {
+            score = score+500
+            particle =null;
+          
+            if(count===5){
+            gameState = "end"
+            }
+       }
+
+
+        else if (particle.body.position.x<600 && particle.body.position.x>301){
+          score = score+100
+          particle =null;
+          if(count===5){
+            gameState = "end"
+            }
+        }
+
+        else if(particle.body.positon.x>600 && particle.body.positon.x<900){
+          score = score+200
+          particle=null;
+          if(count===5){
+            gameState = "end"
+          }
+        }
+    }
+
+    }
+   
    
   }
   function mousePressed(){
+
 if(gameState!=="end"){
   count=count+1
   particle=new Particle(mouseX,10,10,10);
-  particle = null;
+
 }
 
   }
-if(particle!=null){
-  particle.display();
-  if(particle.body.position.y>760)
-  {
-    if(particle.body.position.x<300)
-    {
-score = score+500
-particle =null;
 
-  }
-}
-}
 

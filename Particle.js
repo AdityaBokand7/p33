@@ -5,6 +5,8 @@ constructor(x,y,r){
         restitution:0.4
 
 }
+this.x = x
+this.y =y
 this.r = r
 this.body = Bodies.circle(x,y,this.r/2,options)
 this.color=color(random(0,255),random(0,255),random(0,255));
@@ -23,7 +25,7 @@ display(){
     noStroke();
     fill(this.color)
     ellipseMode(RADIUS)
-    ellipse(0,0,this.r,this.r)
+    ellipse(this.x,this.y,this.r,this.r)
     pop();
 }
 }
